@@ -1,30 +1,26 @@
 /*
- * This code detects objects distance using an ultrasonic sensor and displays it on an LCD display
+ * This code detects whether or not a chair is occupied. If an object is within <DIST_THRESHOLD>cm of 
+ * the sensor it is considered occupied and will light up an LED.
+ * 
  */
 
 #include <Wire.h>
-#include "rgb_lcd.h"
 
-rgb_lcd lcd;
-
-const int colorR = 155;
-const int colorG = 155;
-const int colorB = 155;
-
-const int trigPin = 9;
-const int echoPin = 10;
+const int TRIG_PIN = 9;
+const int ECHO_PIN = 10;
+const int LED_PIN = 4;
 
 long dur;
 int dist;
+const int DIST_THRESHOLD = 40;
+
+bool occupied = false;
 
 void setup() 
-{
-    // set up the LCD's number of columns and rows:
-    lcd.begin(16, 2);
-    lcd.setRGB(colorR, colorG, colorB);
-    
-    pinMode(trigPin, OUTPUT);
-    pinMode(echoPin, INPUT);
+{   
+    pinMode(TRIG_PIN, OUTPUT);
+    pinMode(ECHO_PIN, INPUT);
+    pinMode(LED_PIN, OUTPUT);
 
     Serial.begin(9600);
     delay(1000);
@@ -32,21 +28,28 @@ void setup()
 
 void loop() 
 {
-    digitalWrite(trigPin, HIGH);
+    digitalWrite(TRIG_PIN, HIGH);
     delayMicroseconds(10);
-    digitalWrite(trigPin, LOW);
+    digitalWrite(TRIG_PIN, LOW);
 
-    dur = pulseIn(echoPin, HIGH);
+    dur = pulseIn(ECHO_PIN, HIGH);
     dist = dur*0.034/2;
 
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Distance (cm): ");
-    lcd.setCursor(0, 1);
-    lcd.print(dist);
+    if (dist > DIST_THRESHOLD) {
+      occupied = false;
+    } else {
+      occupied = true;
+    }
 
+    if (occupied) {
+      digitalWrite(LED_PIN, HIGH);
+    } else {
+      digitalWrite(LED_PIN, LOW);
+    }
+    
     Serial.print("Distance: ");
     Serial.println(dist);
 
-    delay(100);
+    delay(1000);
 }
+
