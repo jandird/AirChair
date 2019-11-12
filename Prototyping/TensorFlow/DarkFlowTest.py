@@ -9,6 +9,7 @@ if __name__ == '__main__':
 
     tfnet = TFNet(options)
 
+    # INPUT IMAGE HERE
     imgcv = cv2.imread("./resources/test-img/test5.jpg")
     results = tfnet.return_predict(imgcv)
     print(results)
@@ -24,5 +25,7 @@ if __name__ == '__main__':
         cv2.putText(imgcv, result["label"], (text_x, text_y), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2, cv2.LINE_AA)
 
     im = Image.fromarray(imgcv)
+
+    # OUTPUT IMAGE HERE
     im.save('./resources/analyzed-img/analyzed5.png')
 
