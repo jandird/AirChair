@@ -22,7 +22,12 @@ pip3 install numpy
 Note: If you have TensorFlow 2 installed you may need to first uninstall TensorFlow  
 `pip3 uninstall tensorflow`
 
-Step 4: You should be good to go!  
+Step 4:
+
+Download the YOLOv2 608x608 weights into ./bin and name it yolo.weights
+Download the file from: https://pjreddie.com/darknet/yolo/
+
+Step 5: You should be good to go!  
 - Download the image you want to analyze into resources/test-img and alter line 13  
 - Alter line 30 if you want to change the save location of the analyzed img  
 - Run the main function and watch the magic happen!
