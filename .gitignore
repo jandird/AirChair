@@ -196,3 +196,6 @@ dmypy.json
 .pyre/
 
 .idea/
+
+#Machine Learning
+*.weights
