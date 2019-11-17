@@ -10,13 +10,20 @@ if __name__ == '__main__':
     tfnet = TFNet(options)
 
     # INPUT IMAGE HERE
-    imgcv = cv2.imread("./resources/test-img/test5.jpg")
+    imgcv = cv2.imread("./resources/test-img/IMG_1405.jpg")
     results = tfnet.return_predict(imgcv)
     print(results)
     chairs = []
     people = []
 
     for result in results:
+        if (result["confidence"] > 0.24):
+            print(result)
+            if (result["label"] == 'chair'):
+                chairs.append(result)
+            if (result["label"] == 'person'):
+                people.append(result)
+                
         cv2.rectangle(imgcv,
                       (result["topleft"]["x"], result["topleft"]["y"]),
                       (result["bottomright"]["x"],result["bottomright"]["y"]),
