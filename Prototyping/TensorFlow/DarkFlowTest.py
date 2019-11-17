@@ -57,11 +57,8 @@ if __name__ == '__main__':
         else:
             cv2.circle(imgcv, rectCentre, 30,(0, 225, 0), -1)
 
+
     im = Image.fromarray(imgcv)
 
     # OUTPUT IMAGE HERE
     im.save('./resources/analyzed-img/analyzed5.png')
-
-
-
-  
