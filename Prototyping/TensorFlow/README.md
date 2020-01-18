@@ -32,9 +32,10 @@ Step 5: You should be good to go!
 - Alter line 30 if you want to change the save location of the analyzed img  
 - Run the main function and watch the magic happen!
 
-##### Setup script
 
-If you are on a Linux machine you can use `setupscript.sh`
+## Setup script
+
+Alternatively, if you are on a Linux machine you can use `setupscript.sh`
 
 The AirChair github repo is currently private so make sure you clone it to the machine
 you are working on before running the script.
