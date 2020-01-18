@@ -1,0 +1,31 @@
+#home-page{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: #6cf0e5;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    animation: flow 4s ease-in-out infinite;
+    background: #171f29;
+    background-size: 130%;
+}
+
+.dropdown{
+    font-family: 'Raleway', sans-serif;
+    font-size: 18pt;
+    font-weight: 600;
+}
+
+#open-seats-button{
+    background: #00bddc;
+
+    margin: 50px auto;
+
+    border:0;
+    border-radius: 10px;
+    height: 75px;
+    width: 250px;
+
+    font-size: 20pt;
+    font-weight: 600;
+}
