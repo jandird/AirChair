@@ -32,7 +32,7 @@ Step 5: You should be good to go!
 - Alter line 30 if you want to change the save location of the analyzed img  
 - Run the main function and watch the magic happen!
 
-#####Setup script
+##### Setup script
 
 If you are on a Linux machine you can use `setupscript.sh`
 
