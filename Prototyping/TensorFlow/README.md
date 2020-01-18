@@ -31,3 +31,15 @@ Step 5: You should be good to go!
 - Download the image you want to analyze into resources/test-img and alter line 13  
 - Alter line 30 if you want to change the save location of the analyzed img  
 - Run the main function and watch the magic happen!
+
+#####Setup script
+
+If you are on a Linux machine you can use `setupscript.sh`
+
+The AirChair github repo is currently private so make sure you clone it to the machine
+you are working on before running the script.
+
+From the same directory that the `AirChair` repo is in:
+- run `./setupscript.sh`
+
+When the script is complete you should be good to go!
