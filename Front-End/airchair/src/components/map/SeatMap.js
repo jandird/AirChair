@@ -6,6 +6,8 @@ import "../../resources/css/Map.css"
 
 import json from "../../json/default.json"
 
+import door from "../../resources/images/DoorSwing.png"
+
 class SeatMap extends React.Component {
     constructor(props){
         super(props);
@@ -34,6 +36,7 @@ class SeatMap extends React.Component {
                 <div className="container" id="seat-map">
                     {this.state.tables}
                     {this.state.seats}
+                    <img src={door} alt=""/>
                 </div>
             </div>
         );

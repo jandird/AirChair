@@ -199,3 +199,6 @@ dmypy.json
 
 #Machine Learning
 *.weights
+
+#Images for Prototyping
+Prototyping/TensorFlow/resources/
