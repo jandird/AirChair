@@ -38,6 +38,9 @@
       "ycoord": 450,
       "occupied": false
     }
-
-  ]
+  ],
+  "door": {
+    "corner": "BL",
+    "opens": "L"
+  }
 }
