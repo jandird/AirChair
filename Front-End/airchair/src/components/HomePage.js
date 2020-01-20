@@ -2,14 +2,14 @@ import React from 'react'
 import Dropdown from 'react-dropdown';
 
 import 'react-dropdown/style.css';
-import "./resources/css/HomePage.css"
+import "../resources/css/HomePage.css"
 
-import AirChair from './resources/images/AirChair.png'
+import AirChair from '../resources/images/AirChair.png'
 
 class HomePage extends React.Component {
     render() {
         const options = [
-            'Location One', 'Location Two', 'Location Three'
+            'McMaster University - Thode - Group Meeting Room 1'
         ];
         // const defaultOption = options[0];
 

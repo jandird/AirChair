@@ -1,0 +1,14 @@
+#map-page{
+    position: absolute;
+    top: 100%;
+    background: #171f29;
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+}
+
+#seat-map {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+}
