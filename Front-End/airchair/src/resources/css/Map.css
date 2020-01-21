@@ -1,14 +1,21 @@
-#map-page{
+#map-page {
     position: absolute;
     top: 100%;
     background: #171f29;
     width: 100%;
     min-height: 100%;
     height: auto;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+}
+
+#title {
+    color: #00bddc;
+    font-weight: 600;
+    font-size: 50pt;
 }
 
 #seat-map {
     position: absolute;
-    top: 25%;
     left: 25%;
 }

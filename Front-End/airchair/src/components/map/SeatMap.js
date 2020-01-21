@@ -1,12 +1,12 @@
 import React from 'react'
+
 import Seat from "./Seat";
 import Table from "./Table";
+import Door from "./Door"
 
 import "../../resources/css/Map.css"
 
 import json from "../../json/default.json"
-
-import door from "../../resources/images/DoorSwing.png"
 
 class SeatMap extends React.Component {
     constructor(props){
@@ -33,10 +33,11 @@ class SeatMap extends React.Component {
     render() {
         return (
             <div id="map-page">
+                <h1 id="title">Seat Map</h1>
                 <div className="container" id="seat-map">
                     {this.state.tables}
                     {this.state.seats}
-                    <img src={door} alt=""/>
+                    <Door/>
                 </div>
             </div>
         );

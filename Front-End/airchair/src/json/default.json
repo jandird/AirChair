@@ -2,40 +2,40 @@
   "tables": [
     {
       "xmin": 0,
-      "ymin": 200,
+      "ymin": 50,
       "xmax": 400,
-      "ymax": 400
+      "ymax": 250
     }
   ],
   "seats": [
     {
       "xcoord": 75,
-      "ycoord": 150,
+      "ycoord": 0,
       "occupied": true
     },
     {
       "xcoord": 200,
-      "ycoord": 150,
+      "ycoord": 0,
       "occupied": true
     },
     {
       "xcoord": 325,
-      "ycoord": 150,
+      "ycoord": 0,
       "occupied": false
     },
     {
       "xcoord": 75,
-      "ycoord": 450,
+      "ycoord": 300,
       "occupied": true
     },
     {
       "xcoord": 200,
-      "ycoord": 450,
+      "ycoord": 300,
       "occupied": false
     },
     {
       "xcoord": 325,
-      "ycoord": 450,
+      "ycoord": 300,
       "occupied": false
     }
   ],

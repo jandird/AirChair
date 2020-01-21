@@ -1,0 +1,1 @@
+The folder for the image after its been analyzed

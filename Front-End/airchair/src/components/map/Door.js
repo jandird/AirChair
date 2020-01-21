@@ -5,10 +5,13 @@ import door from "../../resources/images/DoorSwing.png"
 function Door (props){
 
     let doorStyle = {
-        width: "50px",
-        height: "50px"
-
+        width: "100px",
+        height: "100px"
     };
+
+    if (props.corner == "TL"){
+
+    }
     return (
         <div>
             <img src={door} alt="door" style={doorStyle}/>
