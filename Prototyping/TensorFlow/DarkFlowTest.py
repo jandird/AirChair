@@ -10,7 +10,7 @@ if __name__ == '__main__':
     tfnet = TFNet(options)
 
     # INPUT IMAGE HERE
-    imgcv = cv2.imread("./resources/test-img/IMG_1405.jpg")
+    imgcv = cv2.imread("./resources/test-img/capture4.jpg")
     results = tfnet.return_predict(imgcv)
     print(results)
     chairs = []
@@ -53,5 +53,5 @@ if __name__ == '__main__':
     im = Image.fromarray(imgcv)
 
     # OUTPUT IMAGE HERE
-    im.save('./resources/analyzed-img/analyzed5.png')
+    im.save('./resources/analyzed-img/analyzed8.png')
 
