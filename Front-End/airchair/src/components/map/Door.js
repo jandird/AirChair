@@ -6,12 +6,15 @@ function Door (props){
 
     let doorStyle = {
         width: "100px",
-        height: "100px"
+        height: "100px",
+        top: props.ycoord + "px",
+        left: props.xcoord + "px"
     };
 
-    if (props.corner == "TL"){
-
+    if (props.direct === "L"){
+        doorStyle.rotate(90)
     }
+
     return (
         <div>
             <img src={door} alt="door" style={doorStyle}/>

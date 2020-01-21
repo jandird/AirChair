@@ -12,8 +12,10 @@ def index():
 
 @app.route('/image-data')
 def get_image_data():
-    # img = requests.get("Enter URL Here")
-    return darkflow_detection.analyze_img("./resources/captured-img/test.jpg")
+    request = requests.get("http://192.168.43.87:5000/capture")
+    with open('./resources/captured-img/captured.jpg', 'wb') as f:
+        f.write(request.content)
+    return darkflow_detection.analyze_img('./resources/captured-img/captured.jpg')
 
 
 if __name__ == '__main__':

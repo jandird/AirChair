@@ -1,5 +1,6 @@
 import React from 'react'
 import Dropdown from 'react-dropdown';
+import { Link, animateScroll as scroll } from "react-scroll";
 
 import 'react-dropdown/style.css';
 import "../resources/css/HomePage.css"
@@ -28,7 +29,9 @@ class HomePage extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <button id="open-seats-button">Find Open Seats</button>
+                            <Link activeClass="active" className="start-link" to="seat-map" spy={true} smooth={true} duration={500}>
+                                <button id="open-seats-button">Find Open Seats</button>
+                            </Link>
                         </div>
                     </div>
                 </div>

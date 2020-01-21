@@ -9,7 +9,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-dropdown": "^1.6.4",
-    "react-scripts": "3.3.0"
+    "react-scripts": "3.3.0",
+    "react-scroll": "^1.7.16"
   },
   "scripts": {
     "start": "react-scripts start",

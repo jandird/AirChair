@@ -10,12 +10,20 @@
 }
 
 #title {
+    margin: 10px;
     color: #00bddc;
     font-weight: 600;
     font-size: 50pt;
+ }
+
+#location {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 30pt;
 }
 
 #seat-map {
+    margin: 100px;
     position: absolute;
     left: 25%;
 }
