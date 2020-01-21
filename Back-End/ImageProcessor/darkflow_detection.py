@@ -1,5 +1,6 @@
 from darkflow.net.build import TFNet
 import cv2
+import json
 from PIL import Image
 
 options = {"model": "./cfg/yolo.cfg", "load": "./bin/yolo.weights", "threshold": 0.1}
@@ -13,6 +14,17 @@ def analyze_img(img):
     print(results)
     chairs = []
     people = []
+    jsonDict = { 'tables': {},
+                 'seats': {},
+                 'door': {"corner": "BL", "opens": "L"}}
+    seatsDict = {}
+    seatsDictArr = []
+    tablesDictArr = [{
+      "xmin": 0,
+      "ymin": 50,
+      "xmax": 400,
+      "ymax": 250
+    }]
 
     for result in results:
         if (result["confidence"] > 0.25):
@@ -35,6 +47,7 @@ def analyze_img(img):
     print("number of chairs: " + str(len(chairs)))
     print("number of people: " + str(len(people)))
 
+
     # Calculate if a chair is occupied by a person
     for chair in chairs:
         rectCentre = (int(round(chair["topleft"]["x"] + chair["bottomright"]["x"]) / 2),
@@ -46,13 +59,26 @@ def analyze_img(img):
             if (abs(rectCentre[0] - perRectCentre[0]) < 500 and abs(rectCentre[1] - perRectCentre[1]) < 500):
                 occupiedFlag = True
                 break
+
+        seatsDict['xcoord'] = rectCentre[0]
+        seatsDict['ycoord'] = rectCentre[1]
+
         if occupiedFlag:
             cv2.circle(imgcv, rectCentre, 30, (225, 0, 0), -1)
+            seatsDict['occupied'] = "true"
         else:
             cv2.circle(imgcv, rectCentre, 30, (0, 225, 0), -1)
+            seatsDict['occupied'] = "false"
+
+        seatsDictArr.append(seatsDict)
+
 
     im = Image.fromarray(imgcv)
     # OUTPUT IMAGE HERE
     im.save('./resources/analyzed-img/analyzed.png')
 
-    return "number of chairs: " + str(len(chairs)) + "\nnumber of people: " + str(len(people))
+    jsonDict["tables"] = tablesDictArr
+    jsonDict["seats"] = seatsDictArr
+    print(json.dumps(jsonDict))
+
+    return json.dumps(jsonDict)
