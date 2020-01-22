@@ -12,7 +12,6 @@ class HomePage extends React.Component {
         const options = [
             'McMaster University - Thode - Group Meeting Room 1'
         ];
-        // const defaultOption = options[0];
 
         return(
             <div id="home-page">

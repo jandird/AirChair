@@ -7,6 +7,7 @@ function Seat (props){
     let ycen = props.ycoord - size/2;
     let seatStyle = {
         position: "absolute",
+        display: "flex",
         top: ycen,
         left: xcen,
         width: size,
@@ -14,7 +15,8 @@ function Seat (props){
         borderRadius: "50%"
     };
 
-    if (props.occupied){
+    console.log(props.occupied);
+    if (props.occupied === "true"){
         seatStyle.backgroundColor = "#ff1744";
     }
     else {

@@ -6,7 +6,7 @@ import Door from "./Door"
 
 import "../../resources/css/Map.css"
 
-import json from "../../json/default.json"
+import def from  "../../json/default.json"
 
 class SeatMap extends React.Component {
     constructor(props){
@@ -14,24 +14,69 @@ class SeatMap extends React.Component {
         this.state = {
             seats: [],
             tables: [],
-            doors: []
+            doors: [],
+
+            seatMapStyle: {
+                position: "absolute",
+                marginLeft: 0,
+                marginTop: 0
+            }
         }
     }
 
     componentDidMount() {
-        let jsonSeats = json.seats;
-        let jsonTables = json.tables;
-        let jsonDoors = json.doors;
+        let json = def;
 
-        let seats = [];
-        let tables = [];
-        let doors = [];
+        fetch("http://127.0.0.1:5000/image-data")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    json = result;
 
-        jsonSeats.map(s => seats.push(<Seat xcoord={s.xcoord} ycoord={s.ycoord} occupied={s.occupied}/>));
-        jsonTables.map(t => tables.push(<Table xmin={t.xmin} ymin={t.ymin} xmax={t.xmax} ymax={t.ymax}/>));
-        jsonDoors.map(d => doors.push(<Door xcoord={d.xcoord} ycoord={d.ycoord} direction={d.direct}/>));
+                    let xmin = 0;
+                    let xmax = 0;
+                    let ymin = 0;
+                    let ymax = 0;
 
-        this.setState({seats: seats, tables: tables, doors: doors});
+                    console.log(json);
+                    let jsonSeats = json.seats;
+                    let jsonTables = json.tables;
+                    let jsonDoors = json.door;
+
+                    let seats = [];
+                    let tables = [];
+                    let doors = [];
+                    let seatMapStyle = {};
+
+                    jsonSeats.map(s => {
+                        seats.push(<Seat xcoord={s.xcoord} ycoord={s.ycoord} occupied={s.occupied}/>);
+                        xmin = Math.min(xmin, s.xcoord);
+                        xmax = Math.max(xmax, s.xcoord);
+                        ymin = Math.min(ymin, s.ycoord);
+                        ymax = Math.max(ymax, s.ycoord);
+                        return "";
+                    });
+
+                    jsonTables.map(t => {
+                        tables.push(<Table xmin={t.xmin} ymin={t.ymin} xmax={t.xmax} ymax={t.ymax}/>)
+                        xmin = Math.min(xmin, t.xmin);
+                        xmax = Math.max(xmax, t.xmax);
+                        ymin = Math.min(ymin, t.ymin);
+                        ymax = Math.max(ymax, t.ymax);
+                        return "";
+                    });
+
+                    seatMapStyle = {
+                        position: "absolute",
+                        marginLeft: (1134 - (xmax - xmin))/2 + "px",
+                        marginTop: (600 - (ymax - ymin))/2 + "px"
+                    };
+                    console.log(seatMapStyle);
+                    this.setState({seats: seats, tables: tables, doors: doors, seatMapStyle: seatMapStyle});
+            });
+
+        // jsonDoors.map(d => doors.push(<Door xcoord={d.xcoord} ycoord={d.ycoord} direction={d.direct}/>));
+
     }
 
     render() {
@@ -39,10 +84,18 @@ class SeatMap extends React.Component {
             <div id="map-page">
                 <h1 id="title">Seat Map</h1>
                 <h3 id="location">McMaster University - Thode - Group Meeting Room 1</h3>
-                <div className="container" id="seat-map">
-                    {this.state.tables}
-                    {this.state.seats}
-                    <Door/>
+
+                <div className="container" id="map-container">
+                    <div className="row">
+                        <div className="col-12">
+                            <div id="outline"/>
+                            <div id="seat-map" style={this.state.seatMapStyle}>
+                                {this.state.tables}
+                                {this.state.seats}
+                                <Door/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

@@ -3,7 +3,7 @@ import cv2
 import json
 from PIL import Image
 
-options = {"model": "./cfg/yolo.cfg", "load": "./bin/yolo.weights", "threshold": 0.1}
+options = {"model": "./cfg/yolo.cfg", "load": "./bin/yolo.weights", "threshold": 0.25}
 tfnet = TFNet(options)
 
 
@@ -17,7 +17,6 @@ def analyze_img(img):
     jsonDict = { 'tables': {},
                  'seats': {},
                  'door': {"corner": "BL", "opens": "L"}}
-    seatsDict = {}
     seatsDictArr = []
     tablesDictArr = [{
       "xmin": 0,
@@ -34,10 +33,10 @@ def analyze_img(img):
             if (result["label"] == 'person'):
                 people.append(result)
 
-        cv2.rectangle(imgcv,
-                      (result["topleft"]["x"], result["topleft"]["y"]),
-                      (result["bottomright"]["x"], result["bottomright"]["y"]),
-                      (0, 255, 0), 4)
+            cv2.rectangle(imgcv,
+                          (result["topleft"]["x"], result["topleft"]["y"]),
+                          (result["bottomright"]["x"], result["bottomright"]["y"]),
+                          (0, 255, 0), 4)
 
         text_x, text_y = result["topleft"]["x"] - 10, result["topleft"]["y"] - 10
 
@@ -50,13 +49,14 @@ def analyze_img(img):
 
     # Calculate if a chair is occupied by a person
     for chair in chairs:
+        seatsDict = {}
         rectCentre = (int(round(chair["topleft"]["x"] + chair["bottomright"]["x"]) / 2),
-                      int(round((chair["topleft"]["y"] + chair["bottomright"]["y"]) / 2)));
+                      int(round((chair["topleft"]["y"] + chair["bottomright"]["y"]) / 2)))
         occupiedFlag = False
         for person in people:
             perRectCentre = (int(round(person["topleft"]["x"] + person["bottomright"]["x"]) / 2),
                              int(round((person["topleft"]["y"] + person["bottomright"]["y"]) / 2)));
-            if (abs(rectCentre[0] - perRectCentre[0]) < 500 and abs(rectCentre[1] - perRectCentre[1]) < 500):
+            if (abs(rectCentre[0] - perRectCentre[0]) < 200 and abs(rectCentre[1] - perRectCentre[1]) < 200):
                 occupiedFlag = True
                 break
 

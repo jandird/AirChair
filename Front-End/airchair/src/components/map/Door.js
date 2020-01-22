@@ -7,8 +7,6 @@ function Door (props){
     let doorStyle = {
         width: "100px",
         height: "100px",
-        top: props.ycoord + "px",
-        left: props.xcoord + "px"
     };
 
     if (props.direct === "L"){
