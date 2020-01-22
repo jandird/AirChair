@@ -5,12 +5,15 @@ import door from "../../resources/images/DoorSwing.png"
 function Door (props){
 
     let doorStyle = {
+        position: "absolute",
         width: "100px",
         height: "100px",
+        left: "93.8%",
+        top: "500px"
     };
 
     if (props.direct === "L"){
-        doorStyle.rotate(90)
+        doorStyle.transform = "rotate(-90deg)";
     }
 
     return (

@@ -69,7 +69,7 @@ class SeatMap extends React.Component {
                     seatMapStyle = {
                         position: "absolute",
                         marginLeft: (1134 - (xmax - xmin))/2 + "px",
-                        marginTop: (600 - (ymax - ymin))/2 + "px"
+                        marginTop: (550 - (ymax - ymin))/2 + "px"
                     };
                     console.log(seatMapStyle);
                     this.setState({seats: seats, tables: tables, doors: doors, seatMapStyle: seatMapStyle});
@@ -92,8 +92,8 @@ class SeatMap extends React.Component {
                             <div id="seat-map" style={this.state.seatMapStyle}>
                                 {this.state.tables}
                                 {this.state.seats}
-                                <Door/>
                             </div>
+                            <Door direct="L"/>
                         </div>
                     </div>
                 </div>
