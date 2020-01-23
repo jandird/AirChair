@@ -7,7 +7,7 @@ options = {"model": "./cfg/yolo.cfg", "load": "./bin/yolo.weights", "threshold":
 tfnet = TFNet(options)
 
 
-def analyze_img(img):
+def analyze_img(img, count):
     # INPUT IMAGE HERE
     imgcv = cv2.imread(img)
     results = tfnet.return_predict(imgcv)
@@ -19,10 +19,10 @@ def analyze_img(img):
                  'door': {"corner": "BL", "opens": "L"}}
     seatsDictArr = []
     tablesDictArr = [{
-      "xmin": 0,
-      "ymin": 50,
-      "xmax": 400,
-      "ymax": 250
+      "xmin": 100,
+      "ymin": 150,
+      "xmax": 500,
+      "ymax": 350
     }]
 
     for result in results:
@@ -56,7 +56,7 @@ def analyze_img(img):
         for person in people:
             perRectCentre = (int(round(person["topleft"]["x"] + person["bottomright"]["x"]) / 2),
                              int(round((person["topleft"]["y"] + person["bottomright"]["y"]) / 2)));
-            if (abs(rectCentre[0] - perRectCentre[0]) < 200 and abs(rectCentre[1] - perRectCentre[1]) < 200):
+            if (abs(rectCentre[0] - perRectCentre[0]) < 150 and abs(rectCentre[1] - perRectCentre[1]) < 150):
                 occupiedFlag = True
                 break
 
@@ -75,7 +75,7 @@ def analyze_img(img):
 
     im = Image.fromarray(imgcv)
     # OUTPUT IMAGE HERE
-    im.save('./resources/analyzed-img/analyzed.png')
+    im.save('./resources/analyzed-img/analyzed' + str(count) + '.png')
 
     jsonDict["tables"] = tablesDictArr
     jsonDict["seats"] = seatsDictArr

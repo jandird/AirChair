@@ -5,7 +5,7 @@ import { Link, animateScroll as scroll } from "react-scroll";
 import 'react-dropdown/style.css';
 import "../resources/css/HomePage.css"
 
-import AirChair from '../resources/images/AirChair.png'
+import AirChair from '../resources/images/AirChairRev0.png'
 
 class HomePage extends React.Component {
     render() {

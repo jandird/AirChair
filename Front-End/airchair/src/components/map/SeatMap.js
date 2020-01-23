@@ -1,4 +1,6 @@
 import React from 'react'
+import Loading from 'react-loading-bar'
+import 'react-loading-bar/dist/index.css'
 
 import Seat from "./Seat";
 import Table from "./Table";
@@ -20,13 +22,16 @@ class SeatMap extends React.Component {
                 position: "absolute",
                 marginLeft: 0,
                 marginTop: 0
-            }
+            },
+
+            loading: false
         }
     }
 
     componentDidMount() {
         let json = def;
 
+        this.setState({loading: true});
         fetch("http://127.0.0.1:5000/image-data")
             .then(res => res.json())
             .then(
@@ -46,7 +51,7 @@ class SeatMap extends React.Component {
                     let seats = [];
                     let tables = [];
                     let doors = [];
-                    let seatMapStyle = {};
+                    let seatMapStyle;
 
                     jsonSeats.map(s => {
                         seats.push(<Seat xcoord={s.xcoord} ycoord={s.ycoord} occupied={s.occupied}/>);
@@ -72,7 +77,7 @@ class SeatMap extends React.Component {
                         marginTop: (550 - (ymax - ymin))/2 + "px"
                     };
                     console.log(seatMapStyle);
-                    this.setState({seats: seats, tables: tables, doors: doors, seatMapStyle: seatMapStyle});
+                    this.setState({seats: seats, tables: tables, doors: doors, seatMapStyle: seatMapStyle, loading: false});
             });
 
         // jsonDoors.map(d => doors.push(<Door xcoord={d.xcoord} ycoord={d.ycoord} direction={d.direct}/>));
@@ -88,12 +93,16 @@ class SeatMap extends React.Component {
                 <div className="container" id="map-container">
                     <div className="row">
                         <div className="col-12">
+                            <Loading
+                                show={this.state.loading}
+                                color="red"
+                            />
                             <div id="outline"/>
                             <div id="seat-map" style={this.state.seatMapStyle}>
-                                {this.state.tables}
+                                {/*{this.state.tables}*/}
                                 {this.state.seats}
                             </div>
-                            <Door direct="L"/>
+                            {/*<Door direct="L"/>*/}
                         </div>
                     </div>
                 </div>
