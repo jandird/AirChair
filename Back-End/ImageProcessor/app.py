@@ -5,7 +5,7 @@ import darkflow_detection
 
 app = Flask(__name__)
 CORS(app)
-count = 0
+count = 1
 
 
 @app.route('/')

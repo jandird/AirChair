@@ -28,7 +28,7 @@ class HomePage extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <Link activeClass="active" className="start-link" to="seat-map" spy={true} smooth={true} duration={500}>
+                            <Link activeClass="active" className="start-link" to="map-page" spy={true} smooth={true} duration={500}>
                                 <button id="open-seats-button">Find Open Seats</button>
                             </Link>
                         </div>

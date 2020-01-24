@@ -1,4 +1,5 @@
 import React from 'react'
+import {Circle} from 'react-konva';
 
 function Seat (props){
 
@@ -15,16 +16,16 @@ function Seat (props){
         borderRadius: "50%"
     };
 
-    console.log(props.occupied);
+    let color;
     if (props.occupied === "true"){
-        seatStyle.backgroundColor = "#ff1744";
+        color = "#ff1744";
     }
     else {
-        seatStyle.backgroundColor = "#1de9b6";
+        color = "#1de9b6";
     }
 
     return (
-        <div style={seatStyle}/>
+        <Circle x={props.xcoord} y={props.ycoord} radius={25} fill={color} />
     );
 }
 

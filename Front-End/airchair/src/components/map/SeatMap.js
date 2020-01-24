@@ -1,6 +1,8 @@
 import React from 'react'
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
+import { Stage, Layer, Circle } from 'react-konva';
+import Konva from 'konva';
 
 import Seat from "./Seat";
 import Table from "./Table";
@@ -24,7 +26,11 @@ class SeatMap extends React.Component {
                 marginTop: 0
             },
 
-            loading: false
+            loading: false,
+
+            stageScale: 1,
+            stageX: 0,
+            stageY: 0
         }
     }
 
@@ -63,7 +69,7 @@ class SeatMap extends React.Component {
                     });
 
                     jsonTables.map(t => {
-                        tables.push(<Table xmin={t.xmin} ymin={t.ymin} xmax={t.xmax} ymax={t.ymax}/>)
+                        tables.push(<Table xmin={t.xmin} ymin={t.ymin} xmax={t.xmax} ymax={t.ymax}/>);
                         xmin = Math.min(xmin, t.xmin);
                         xmax = Math.max(xmax, t.xmax);
                         ymin = Math.min(ymin, t.ymin);
@@ -97,18 +103,50 @@ class SeatMap extends React.Component {
                                 show={this.state.loading}
                                 color="red"
                             />
-                            <div id="outline"/>
-                            <div id="seat-map" style={this.state.seatMapStyle}>
-                                {/*{this.state.tables}*/}
-                                {this.state.seats}
-                            </div>
-                            {/*<Door direct="L"/>*/}
+                            <Stage width={1000} height={1000} draggable={true} onWheel={this.handleWheel}
+                                   scaleX={this.state.stageScale} scaleY={this.state.stageScale}
+                                   x={this.state.stageX} y={this.state.stageY}
+                            >
+                                <Layer>
+                                    {this.state.tables}
+                                    {this.state.seats}
+                                </Layer>
+                            </Stage>
+                            {/*<div id="outline"/>*/}
+                            {/*<div id="seat-map" style={this.state.seatMapStyle}>*/}
+                            {/*    /!*{this.state.tables}*!/*/}
+                            {/*    {this.state.seats}*/}
+                            {/*</div>*/}
+                            {/*/!*<Door direct="L"/>*!/*/}
                         </div>
                     </div>
                 </div>
             </div>
         );
     }
+
+    handleWheel = e => {
+        e.evt.preventDefault();
+
+        const scaleBy = 1.02;
+        const stage = e.target.getStage();
+        const oldScale = stage.scaleX();
+        const mousePointTo = {
+            x: stage.getPointerPosition().x / oldScale - stage.x() / oldScale,
+            y: stage.getPointerPosition().y / oldScale - stage.y() / oldScale
+        };
+
+        const newScale = e.evt.deltaY > 0 ? oldScale * scaleBy : oldScale / scaleBy;
+
+
+        this.setState({
+            stageScale: newScale,
+            stageX:
+                -(mousePointTo.x - stage.getPointerPosition().x / newScale) * newScale,
+            stageY:
+                -(mousePointTo.y - stage.getPointerPosition().y / newScale) * newScale
+        });
+    };
 }
 
 export default SeatMap;
