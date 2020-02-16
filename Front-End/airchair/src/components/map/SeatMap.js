@@ -1,12 +1,10 @@
 import React from 'react'
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
-import { Stage, Layer, Circle } from 'react-konva';
-import Konva from 'konva';
+import { Stage, Layer} from 'react-konva';
 
 import Seat from "./Seat";
 import Table from "./Table";
-import Door from "./Door"
 
 import "../../resources/css/Map.css"
 
@@ -52,7 +50,6 @@ class SeatMap extends React.Component {
                     console.log(json);
                     let jsonSeats = json.seats;
                     let jsonTables = json.tables;
-                    let jsonDoors = json.door;
 
                     let seats = [];
                     let tables = [];
@@ -85,9 +82,6 @@ class SeatMap extends React.Component {
                     console.log(seatMapStyle);
                     this.setState({seats: seats, tables: tables, doors: doors, seatMapStyle: seatMapStyle, loading: false});
             });
-
-        // jsonDoors.map(d => doors.push(<Door xcoord={d.xcoord} ycoord={d.ycoord} direction={d.direct}/>));
-
     }
 
     render() {
@@ -101,7 +95,7 @@ class SeatMap extends React.Component {
                         <div className="col-12">
                             <Loading
                                 show={this.state.loading}
-                                color="red"
+                                color="#00bdcc"
                             />
                             <Stage width={1000} height={1000} draggable={true} onWheel={this.handleWheel}
                                    scaleX={this.state.stageScale} scaleY={this.state.stageScale}
@@ -112,12 +106,6 @@ class SeatMap extends React.Component {
                                     {this.state.seats}
                                 </Layer>
                             </Stage>
-                            {/*<div id="outline"/>*/}
-                            {/*<div id="seat-map" style={this.state.seatMapStyle}>*/}
-                            {/*    /!*{this.state.tables}*!/*/}
-                            {/*    {this.state.seats}*/}
-                            {/*</div>*/}
-                            {/*/!*<Door direct="L"/>*!/*/}
                         </div>
                     </div>
                 </div>

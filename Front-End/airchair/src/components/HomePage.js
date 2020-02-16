@@ -1,6 +1,6 @@
 import React from 'react'
 import Dropdown from 'react-dropdown';
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-scroll";
 
 import 'react-dropdown/style.css';
 import "../resources/css/HomePage.css"
