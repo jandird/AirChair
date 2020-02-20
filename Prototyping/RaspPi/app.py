@@ -13,7 +13,7 @@ def index():
 def captureImage():
     file = '/home/pi/Desktop/picture.jpg'
 
-    camera = PiCamera()
+    camera = PiCamera(resolution=(1920,1080))
     camera.start_preview()
     time.sleep(4)
     camera.capture(file)
