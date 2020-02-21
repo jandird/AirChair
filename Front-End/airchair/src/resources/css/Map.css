@@ -22,8 +22,13 @@
     font-size: 30pt;
 }
 
-#map-container{
+#map-container {
     height: 100%;
+    border: #00bddc solid;
+}
+
+#map-col {
+    padding: 0;
 }
 
 #outline {

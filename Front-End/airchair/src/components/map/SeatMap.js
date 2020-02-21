@@ -13,6 +13,7 @@ import def from  "../../json/default.json"
 class SeatMap extends React.Component {
     constructor(props){
         super(props);
+
         this.state = {
             seats: [],
             tables: [],
@@ -26,10 +27,12 @@ class SeatMap extends React.Component {
 
             loading: false,
 
+            stageWidth: 1000,
+            stageHeight: 1000,
             stageScale: 1,
             stageX: 0,
             stageY: 0
-        }
+        };
     }
 
     componentDidMount() {
@@ -82,6 +85,10 @@ class SeatMap extends React.Component {
                     console.log(seatMapStyle);
                     this.setState({seats: seats, tables: tables, doors: doors, seatMapStyle: seatMapStyle, loading: false});
             });
+
+        let mapCol = document.querySelector('#map-col');
+        this.setState({stageWidth: mapCol.offsetWidth, stageHeight: mapCol.offsetHeight/1.5});
+        window.addEventListener("resize", this.updateWidth.bind(this));
     }
 
     render() {
@@ -92,12 +99,12 @@ class SeatMap extends React.Component {
 
                 <div className="container" id="map-container">
                     <div className="row">
-                        <div className="col-12">
+                        <div id="map-col" className="col-12">
                             <Loading
                                 show={this.state.loading}
                                 color="#00bdcc"
                             />
-                            <Stage width={1000} height={1000} draggable={true} onWheel={this.handleWheel}
+                            <Stage width={this.state.stageWidth} height={this.state.stageHeight} draggable={true} onWheel={this.handleWheel}
                                    scaleX={this.state.stageScale} scaleY={this.state.stageScale}
                                    x={this.state.stageX} y={this.state.stageY}
                             >
@@ -135,6 +142,11 @@ class SeatMap extends React.Component {
                 -(mousePointTo.y - stage.getPointerPosition().y / newScale) * newScale
         });
     };
+
+    updateWidth () {
+        let mapCol = document.querySelector('#map-col');
+        this.setState({stageWidth: mapCol.offsetWidth});
+    }
 }
 
 export default SeatMap;
