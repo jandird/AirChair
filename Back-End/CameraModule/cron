@@ -4,4 +4,4 @@
 #Copy and paste the line below in to the crontab file
 #reboot pi with 'sudo reboot' and check if app.py is automatically started. If not, check log files via 'cd logs' -> 'cat cronlog'
 
-@reboot sh /home/pi/launcher.sh >/home/pi/logs/cronlog 2>&1
+@reboot sh /home/pi/Desktop/AirChair/Back-End/CameraModule/launcher.sh >/home/pi/logs/cronlog 2>&1
