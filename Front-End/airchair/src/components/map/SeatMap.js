@@ -96,14 +96,37 @@ class SeatMap extends React.Component {
                         let ycoord = parseInt(s.ycoord / 75);
 
                         let findGrid = true;
-                        let count = 0;
+                        let count = 1;
                         while (findGrid){
-                            if (grid[xcoord][ycoord] !== undefined){
-                                ycoord++;
+                            let xtemp = xcoord;
+                            let ytemp = ycoord;
+
+                            if (count % 4 === 1){
+                                xtemp += parseInt(count / 4);
                             }
-                            else {
+                            else if (count % 4 === 2) {
+                                xtemp -= parseInt(count / 4);
+                            }
+                            else if (count % 4 === 3) {
+                                ytemp += parseInt(count / 4);
+                            }
+                            else if (count % 4 === 0) {
+                                ytemp -= parseInt(count / 4);
+                            }
+
+                            if (xtemp < 0){
+                                xtemp = 0;
+                            }
+                            if (ytemp < 0){
+                                ytemp = 0;
+                            }
+
+                            if (grid[xtemp][ytemp] === undefined) {
+                                xcoord = xtemp;
+                                ycoord = ytemp;
                                 findGrid = false;
                             }
+                            count++;
                         }
 
                         totalSeats++;
