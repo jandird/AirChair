@@ -1,0 +1,7 @@
+#enter this line in the raspberry pi cron file
+#Directions:
+#Use pi's command prompt and type 'sudo crontab -e' to bring up a crontab window.
+#Copy and paste the line below in to the crontab file
+#reboot pi with 'sudo reboot' and check if app.py is automatically started. If not, check log files via 'cd logs' -> 'cat cronlog'
+
+@reboot python /home/pi/Desktop/AirChair/Back-End/CameraModule/app.py &
