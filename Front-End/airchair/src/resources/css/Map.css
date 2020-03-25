@@ -7,6 +7,7 @@
     height: auto;
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
+    color: white;
 }
 
 #title {
@@ -36,4 +37,28 @@
     width: 100%;
     height: 600px;
     border: #00bddc solid;
+}
+
+#data-container {
+    margin: 40px auto;
+}
+
+h5 {
+    font-weight: bold;
+}
+
+p {
+    font-size: 50pt;
+}
+
+#total-num {
+    color: #00bddc;
+}
+
+.occup {
+    color: #ff1744;
+}
+
+.unoccup {
+    color: #1de9b6;
 }

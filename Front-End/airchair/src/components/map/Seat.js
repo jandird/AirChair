@@ -12,7 +12,7 @@ function Seat (props){
     }
 
     return (
-        <Circle x={props.xcoord} y={props.ycoord} radius={25} fill={color} />
+        <Circle x={props.xcoord} y={props.ycoord} radius={75} fill={color} />
     );
 }
 

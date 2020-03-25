@@ -14,16 +14,12 @@ def analyze_img(img, count):
     print(results)
     chairs = []
     people = []
+    tables = []
     jsonDict = { 'tables': {},
                  'seats': {},
                  'door': {"corner": "BL", "opens": "L"}}
     seatsDictArr = []
-    tablesDictArr = [{
-      "xmin": 100,
-      "ymin": 150,
-      "xmax": 500,
-      "ymax": 350
-    }]
+    tablesDictArr = []
 
     for result in results:
         if (result["confidence"] > 0.25):
@@ -32,6 +28,8 @@ def analyze_img(img, count):
                 chairs.append(result)
             if (result["label"] == 'person'):
                 people.append(result)
+            if (result["label"] == 'diningtable' or result["label"] == 'bed' or result["label"] == 'fridge'):
+                tables.append(result)
 
             cv2.rectangle(imgcv,
                           (result["topleft"]["x"], result["topleft"]["y"]),
@@ -46,6 +44,16 @@ def analyze_img(img, count):
     print("number of chairs: " + str(len(chairs)))
     print("number of people: " + str(len(people)))
 
+    for table in tables:
+        tableDict = {}
+        tableDict['xmin'] = round(table["topleft"]["x"])
+        tableDict['ymin'] = round(table["topleft"]["y"])
+        tableDict['xmax'] = round(table["bottomright"]["x"])
+        tableDict['ymax'] = round(table["bottomright"]["y"])
+
+        tablesDictArr.append(tableDict)
+
+    tablesDictArr = sorted(tablesDictArr, key=lambda i: (i['xmin'], i['ymin']))
 
     # Calculate if a chair is occupied by a person
     for chair in chairs:
@@ -72,6 +80,7 @@ def analyze_img(img, count):
 
         seatsDictArr.append(seatsDict)
 
+    seatsDictArr = sorted(seatsDictArr, key=lambda i: (i['xcoord'], i['ycoord']))
 
     im = Image.fromarray(imgcv)
     # OUTPUT IMAGE HERE
