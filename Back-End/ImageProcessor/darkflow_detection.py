@@ -55,37 +55,49 @@ def analyze_img(img, count):
 
     tablesDictArr = sorted(tablesDictArr, key=lambda i: (i['xmin'], i['ymin']))
 
+    distance = 200
+    occupiedSeats = 0
+    rerun = 0
+    
     # Calculate if a chair is occupied by a person
-    for chair in chairs:
-        seatsDict = {}
-        rectCentre = (int(round(chair["topleft"]["x"] + chair["bottomright"]["x"]) / 2),
-                      int(round((chair["topleft"]["y"] + chair["bottomright"]["y"]) / 2)))
-        occupiedFlag = False
-        for person in people:
-            perRectCentre = (int(round(person["topleft"]["x"] + person["bottomright"]["x"]) / 2),
-                             int(round((person["topleft"]["y"] + person["bottomright"]["y"]) / 2)));
-            if (abs(rectCentre[0] - perRectCentre[0]) < 150 and abs(rectCentre[1] - perRectCentre[1]) < 150):
-                occupiedFlag = True
-                break
+    while(True):
+        for chair in chairs:
+            seatsDict = {}
+            rectCentre = (int(round(chair["topleft"]["x"] + chair["bottomright"]["x"]) / 2),
+                          int(round((chair["topleft"]["y"] + chair["bottomright"]["y"]) / 2)))
+            occupiedFlag = False
+            for person in people:
+                perRectCentre = (int(round(person["topleft"]["x"] + person["bottomright"]["x"]) / 2),
+                                 int(round((person["topleft"]["y"] + person["bottomright"]["y"]) / 2)));
+                if (abs(rectCentre[0] - perRectCentre[0]) < distance and abs(rectCentre[1] - perRectCentre[1]) < distance):
+                    occupiedFlag = True
+                    occupiedSeats += 1
+                    break
 
-        seatsDict['xcoord'] = rectCentre[0]
-        seatsDict['ycoord'] = rectCentre[1]
+            seatsDict['xcoord'] = rectCentre[0]
+            seatsDict['ycoord'] = rectCentre[1]
 
-        if occupiedFlag:
-            cv2.circle(imgcv, rectCentre, 30, (225, 0, 0), -1)
-            seatsDict['occupied'] = "true"
+            if occupiedFlag:
+                cv2.circle(imgcv, rectCentre, 30, (225, 0, 0), -1)
+                seatsDict['occupied'] = "true"
+            else:
+                cv2.circle(imgcv, rectCentre, 30, (0, 225, 0), -1)
+                seatsDict['occupied'] = "false"
+
+            seatsDictArr.append(seatsDict)
+
+        if((len(people) != occupiedSeats) and rerun == 0):
+            distance *= 1.25
+            print("Number of people = ",len(people), " and number of occupied seats = ",occupiedSeats, ". Rerunning")
+            rerun += 1
         else:
-            cv2.circle(imgcv, rectCentre, 30, (0, 225, 0), -1)
-            seatsDict['occupied'] = "false"
-
-        seatsDictArr.append(seatsDict)
+            break
 
     seatsDictArr = sorted(seatsDictArr, key=lambda i: (i['xcoord'], i['ycoord']))
 
     im = Image.fromarray(imgcv)
     # OUTPUT IMAGE HERE
     im.save('./resources/analyzed-img/analyzed' + str(count) + '.png')
-
     jsonDict["tables"] = tablesDictArr
     jsonDict["seats"] = seatsDictArr
     print(json.dumps(jsonDict))
