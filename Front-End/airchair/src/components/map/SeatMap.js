@@ -64,10 +64,10 @@ class SeatMap extends React.Component {
                     let occupiedSeats = 0;
 
                     jsonTables.map(t => {
-                        let xmin = parseInt(t.xmin / 75);
-                        let xmax = parseInt(t.xmax / 75);
-                        let ymin = parseInt(t.ymin / 75);
-                        let ymax = parseInt(t.ymax / 75);
+                        let xmin = parseInt(t.xmin / 150);
+                        let xmax = parseInt(t.xmax / 150);
+                        let ymin = parseInt(t.ymin / 150);
+                        let ymax = parseInt(t.ymax / 150);
 
                         let findGrid = true;
                         let count = 0;
@@ -87,13 +87,13 @@ class SeatMap extends React.Component {
                             }
                         }
 
-                        tables.push(<Table xmin={xmin * 75} ymin={ymin * 75} xmax={xmax * 75} ymax={ymax * 75}/>);
+                        tables.push(<Table xmin={xmin * 150} ymin={ymin * 150} xmax={xmax * 150} ymax={ymax * 150}/>);
                         return "";
                     });
 
                     jsonSeats.map(s => {
-                        let xcoord = parseInt(s.xcoord / 75);
-                        let ycoord = parseInt(s.ycoord / 75);
+                        let xcoord = parseInt(s.xcoord / 150);
+                        let ycoord = parseInt(s.ycoord / 150);
 
                         let findGrid = true;
                         let count = 1;
@@ -138,7 +138,7 @@ class SeatMap extends React.Component {
                             grid[xcoord][ycoord] = "US";
                         }
 
-                        seats.push(<Seat xcoord={xcoord * 75} ycoord={ycoord * 75} occupied={s.occupied}/>);
+                        seats.push(<Seat xcoord={xcoord * 150} ycoord={ycoord * 150} occupied={s.occupied}/>);
                         return "";
                     });
 

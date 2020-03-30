@@ -60,7 +60,10 @@ def analyze_img(img, count):
     rerun = 0
     
     # Calculate if a chair is occupied by a person
-    while(True):
+    while True:
+
+        seatsDictArr = []
+
         for chair in chairs:
             seatsDict = {}
             rectCentre = (int(round(chair["topleft"]["x"] + chair["bottomright"]["x"]) / 2),
@@ -69,7 +72,7 @@ def analyze_img(img, count):
             for person in people:
                 perRectCentre = (int(round(person["topleft"]["x"] + person["bottomright"]["x"]) / 2),
                                  int(round((person["topleft"]["y"] + person["bottomright"]["y"]) / 2)))
-                if (abs(rectCentre[0] - perRectCentre[0]) < distance and abs(rectCentre[1] - perRectCentre[1]) < distance):
+                if abs(rectCentre[0] - perRectCentre[0]) < distance and abs(rectCentre[1] - perRectCentre[1]) < distance:
                     occupiedFlag = True
                     occupiedSeats += 1
                     break
@@ -86,9 +89,9 @@ def analyze_img(img, count):
 
             seatsDictArr.append(seatsDict)
 
-        if((len(people) != occupiedSeats) and rerun == 0):
+        if (len(people) != occupiedSeats) and rerun == 0:
             distance *= 1.25
-            print("Number of people = ",len(people), " and number of occupied seats = ",occupiedSeats, ". Rerunning")
+            print("Number of people = ",len(people), " and number of occupied seats = ", occupiedSeats, ". Rerunning")
             rerun += 1
         else:
             break
