@@ -3,7 +3,7 @@ import cv2
 import json
 from PIL import Image
 
-options = {"model": "./cfg/yolo.cfg", "load": "./bin/yolo.weights", "threshold": 0.25}
+options = {"model": "./cfg/yolo.cfg", "load": "./bin/yolo.weights", "threshold": 0.15}
 tfnet = TFNet(options)
 
 
@@ -22,7 +22,7 @@ def analyze_img(img, count):
     tablesDictArr = []
 
     for result in results:
-        if (result["confidence"] > 0.25):
+        if (result["confidence"] > 0.15):
             print(result)
             if (result["label"] == 'chair'):
                 chairs.append(result)
@@ -97,6 +97,32 @@ def analyze_img(img, count):
             break
 
     seatsDictArr = sorted(seatsDictArr, key=lambda i: (i['xcoord'], i['ycoord']))
+
+    # eliminate duplicate chairs
+    for seat in seatsDictArr: 
+        seatX = seat['xcoord']
+        seatY = seat['ycoord']
+        for nextSeat in seatsDictArr:
+            nextSeatX = nextSeat['xcoord']
+            nextSeatY = nextSeat['ycoord']
+            if ((seatX != nextSeatX) and (seatY != nextSeatY)):
+                if (abs(seatX - nextSeatX) < distance and abs(seatY - nextSeatY) < distance):
+                    seatsDictArr.remove(nextSeat)
+    
+    for table in tablesDictArr:
+        tableCentre = (int(round(table['xmin'] + table['xmax']) / 2),
+                          int(round((table['ymin'] + table['ymax']) / 2)))
+        tableX = tableCentre[0]
+        tableY = tableCentre[1]
+        for nextTable in tablesDictArr:
+            nextTableCentre = (int(round(nextTable['xmin'] + nextTable['xmax']) / 2),
+                          int(round((nextTable['ymin'] + nextTable['ymax']) / 2)))
+            nextTableX = nextTableCentre[0]
+            nextTableY = nextTableCentre[1]
+            if ((tableX != nextTableX) and (tableY != nextTableY)):
+                if (abs(tableX - nextTableX) < distance and abs(tableY - nextTableY) < distance):
+                    tablesDictArr.remove(nextTable)
+
 
     im = Image.fromarray(imgcv)
     # OUTPUT IMAGE HERE
