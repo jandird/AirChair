@@ -10,7 +10,7 @@ import AirChair from '../resources/images/AirChairRev0.png'
 class HomePage extends React.Component {
     render() {
         const options = [
-            'McMaster University - Thode - Group Meeting Room 1'
+            'Andrew\'s Kitchen'
         ];
 
         return(

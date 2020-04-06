@@ -162,7 +162,7 @@ class SeatMap extends React.Component {
         return (
             <div id="map-page">
                 <h1 id="title">Seat Map</h1>
-                <h3 id="location">McMaster University - Thode - Group Meeting Room 1</h3>
+                <h3 id="location">Andrew's Kitchen</h3>
 
                 <div className="container" id="map-container">
                     <div className="row">
@@ -171,8 +171,8 @@ class SeatMap extends React.Component {
                                 show={this.state.loading}
                                 color="#00bdcc"
                             />
-                            <Stage width={this.state.stageWidth} height={this.state.stageHeight} draggable={true} onWheel={this.handleWheel}
-                                   scaleX={this.state.stageScale} scaleY={this.state.stageScale}
+                            <Stage width={this.state.stageWidth} height={this.state.stageHeight} draggable={true}
+                                   onWheel={this.handleWheel} scaleX={this.state.stageScale} scaleY={this.state.stageScale}
                                    x={this.state.stageX} y={this.state.stageY}
                             >
                                 <Layer>
@@ -187,18 +187,28 @@ class SeatMap extends React.Component {
                     <div className="row">
                         <div className="col-3">
                             <h5># of Seats</h5>
-                            <p id="total-num">{this.state.totalSeats}</p>
                         </div>
                         <div className="col-3">
                             <h5># of Unoccupied Seats</h5>
-                            <p className="unoccup">{this.state.totalSeats - this.state.occupiedSeats}</p>
                         </div>
                         <div className="col-3">
                             <h5># of Occupied Seats </h5>
-                            <p className="occup">{this.state.occupiedSeats}</p>
                         </div>
                         <div className="col-3">
                             <h5>Occupancy Percentage</h5>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-3">
+                            <p id="total-num">{this.state.totalSeats}</p>
+                        </div>
+                        <div className="col-3">
+                            <p className="unoccup">{this.state.totalSeats - this.state.occupiedSeats}</p>
+                        </div>
+                        <div className="col-3">
+                            <p className="occup">{this.state.occupiedSeats}</p>
+                        </div>
+                        <div className="col-3">
                             <p className={this.state.occupancyState}>{this.state.occupancyPercent}%</p>
                         </div>
                     </div>
@@ -220,13 +230,10 @@ class SeatMap extends React.Component {
 
         const newScale = e.evt.deltaY > 0 ? oldScale * scaleBy : oldScale / scaleBy;
 
-
         this.setState({
             stageScale: newScale,
-            stageX:
-                -(mousePointTo.x - stage.getPointerPosition().x / newScale) * newScale,
-            stageY:
-                -(mousePointTo.y - stage.getPointerPosition().y / newScale) * newScale
+            stageX: -(mousePointTo.x - stage.getPointerPosition().x / newScale) * newScale,
+            stageY: -(mousePointTo.y - stage.getPointerPosition().y / newScale) * newScale
         });
     };
 
