@@ -83,7 +83,6 @@ def analyze_img(img, count):
 
    
     people = peopleDictArr
-    print(people)
     
     # Calculate if a chair is occupied by a person
     while True:
