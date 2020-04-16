@@ -10,14 +10,18 @@
 }
 
 h4 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
     margin: auto;
     padding: 20px;
-    font-weight: bold;
 }
 
 h5 {
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
 }
 
 .feedback-btn{
@@ -31,15 +35,61 @@ h5 {
     margin: 20px auto;
 }
 
-#good {
-    width: 350px;
-    height: 50px;
+#bad-modal {
+    width: 70%;
+    height: 40%;
     margin: auto;
     border-radius: 50%;
+    background-color: #171f29;
 }
 
-.feedback-dropdown{
+.feedback-dropdown {
     font-family: 'Raleway', sans-serif;
-    font-size: 12pt;
+    font-size: 14pt;
+    font-weight: 600;
+    margin: 20px;
+}
+
+.modal-button {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14pt;
+    font-weight: 600;
+    color: white;
+    background: #171f29;
+    margin: 20px;
+    width: 125px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+#prev-feedback {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14pt;
+    font-weight: 600;
+    color: #6cf0e5;
+    background: #171f29;
+    margin: 20px;
+    width: 300px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+#feedback-modal {
+    width: 60%;
+    height: auto;
+    margin: auto;
+    border-radius: 50%;
+    background-color: #171f29;
+}
+
+.modal-img {
+    margin: 20px auto;
+    width: 50px;
+    height: 50px;
+}
+
+table {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14pt;
     font-weight: 600;
 }
